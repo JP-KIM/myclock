@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="startTime()">
+
+<h2>JavaScript Clock</h2>
+
+<div id="txt"></div>
+
+<script>
+previous_ms = 0
+function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  let mili = today.getMilliseconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  
+  if (mili % 10 >= previous_ms) {
+    previous_ms = mili % 10
+    //document.getElementById('txt').innerHTML = document.getElementById('txt').innerHTML + "<br/>??" + h + ":" + m + ":" + s + "." + mili;
+    setTimeout(startTime, 3);
+  } else {
+    previous_ms = mili % 10
+    mili = checkMiliTime(mili);
+    document.getElementById('txt').innerHTML = document.getElementById('txt').innerHTML + "<br/>" + h + ":" + m + ":" + s + "." + mili;
+    //document.getElementById('txt').innerHTML = h + ":" + m + ":" + s + "." + mili;
+    setTimeout(startTime, 3);
+  }
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+function checkMiliTime(i) {
+  if (i < 10) {i = "00" + i}
+  else if (i < 100) {i = "0" + i};// add zero in front of numbers < 10
+  return i;
+}
+</script>
+
+</body>
+</html>
