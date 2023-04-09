@@ -25,8 +25,8 @@ function startTime() {
   } else {
     previous_ms = mili % 10
     mili = checkMiliTime(mili);
-    document.getElementById('txt').innerHTML = document.getElementById('txt').innerHTML + "<br/>" + h + ":" + m + ":" + s + "." + mili;
-    //document.getElementById('txt').innerHTML = h + ":" + m + ":" + s + "." + mili;
+    //document.getElementById('txt').innerHTML = document.getElementById('txt').innerHTML + "<br/>" + h + ":" + m + ":" + s + "." + mili;
+    document.getElementById('txt').innerHTML = h + ":" + m + ":" + s + "." + mili;
     setTimeout(startTime, 3);
   }
 }
