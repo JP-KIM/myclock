@@ -6,13 +6,39 @@
 body {
   background: gray
 }
-</style>
-<h2>JavaScript Clock</h2>
+.image_wrapper {
+  position: relative;
+}
 
+img {
+  display: block;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute; 
+}
+
+.overlay_0 {
+  left: 0;
+  top: 0;
+  padding-top: 0px;
+  padding-left: 0px;
+}
+</style>
 <img src="chessboard.png" width="915" height="665">
+<div class="overlay overlay_0" id="circle">
+  <img src="circle-64.png">
+</div>
 <div id="txt" style="font-size:100px;"></div>
 
 <script>
+radius = 32
+x_offset = [140, 224, 308, 392, 476, 560, 644, 728]
+y_offset = [140, 224, 308, 392, 476]
+x=0
+y=0
+TERM = 10
 previous_ms = 0
 function startTime() {
   const today = new Date();
@@ -23,16 +49,26 @@ function startTime() {
   m = checkTime(m);
   s = checkTime(s);
   
-  if (mili % 10 >= previous_ms) {
-    previous_ms = mili % 10
-    //document.getElementById('txt').innerHTML = document.getElementById('txt').innerHTML + "<br/>??" + h + ":" + m + ":" + s + "." + mili;
+  if (mili % TERM >= previous_ms) {
+    previous_ms = mili % TERM
     setTimeout(startTime, 3);
   } else {
-    previous_ms = mili % 10
+    previous_ms = mili % TERM
     mili = checkMiliTime(mili);
-    //document.getElementById('txt').innerHTML = document.getElementById('txt').innerHTML + "<br/>" + h + ":" + m + ":" + s + "." + mili;
     document.getElementById('txt').innerHTML = h + ":" + m + ":" + s + "." + mili;
-    console.log(h + ":" + m + ":" + s + "." + mili);
+    //console.log(h + ":" + m + ":" + s + "." + mili);
+    leftv = x_offset[x] - radius
+    topv = y_offset[y] - radius
+    document.querySelector("#circle").style.paddingTop = topv+'px';
+    document.querySelector("#circle").style.paddingLeft = leftv+'px';
+    x++;
+    if (x == x_offset.length) {
+        x = 0;
+        y++;
+        if (y == y_offset.length) {
+            y = 0;
+        }
+    }
     setTimeout(startTime, 3);
   }
 }
